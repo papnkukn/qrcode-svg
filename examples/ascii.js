@@ -5,8 +5,8 @@ var modules = hello.qrcode.modules;
 
 var ascii = '';
 var length = modules.length;
-for (var x = 0; x < length; x++) {
-  for (var y = 0; y < length; y++) {
+for (var y = 0; y < length; y++) {
+  for (var x = 0; x < length; x++) {
     var module = modules[x][y];
     ascii += (module ? 'x' : ' ');
   }

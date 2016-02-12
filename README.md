@@ -1,5 +1,3 @@
-Pure JavaScript QR Code generator
-
 ## Introduction
 
 This library has been written to generate a SVG image of QR Code in Node.js, goals:
@@ -87,8 +85,8 @@ var modules = hello.qrcode.modules;
 
 var ascii = '';
 var length = modules.length;
-for (var x = 0; x < length; x++) {
-  for (var y = 0; y < length; y++) {
+for (var y = 0; y < length; y++) {
+  for (var x = 0; x < length; x++) {
     var module = modules[x][y];
     ascii += (module ? 'x' : ' ');
   }
@@ -100,31 +98,32 @@ console.log(ascii);
 ```
 
 
-    xxxxxxx x    xxx  xxxxxxx
-    x     x   xxx  x  x     x
-    x xxx x x   xx    x xxx x
-    x xxx x  x x   xx x xxx x
-    x xxx x   xx   xx x xxx x
-    x     x xx  xxx x x     x
+    xxxxxxx xx    x x xxxxxxx
+    x     x  xxxx x x x     x
+    x xxx x xx  xx  x x xxx x
+    x xxx x       xx  x xxx x
+    x xxx x  x   x  x x xxx x
+    x     x  x  xx xx x     x
     xxxxxxx x x x x x xxxxxxx
-              xxxx           
-    x x   xx x xxx xx  x  x x
-    xxx xx x x x    x xx xx x
-     x    x      xx x  x xx x
-     x      xxxx  xxx    x x 
-     xx  xx    x xx   x  x  x
-      x xx  x x  xx   xx xx x
-    xx x  x    x   x  x  xx x
-       x x x  x  x     xxx   
-    xxx xxxx x xxx xxxxxxx x 
-            xx  x   x   xxx  
-    xxxxxxx x x xxxxx x x   x
-    x     x  xxxx xxx   x    
-    x xxx x      xx xxxxxx   
-    x xxx x  x   xx x   x    
-    x xxx x xx x     x  xxxxx
-    x     x   x  x     xxx   
-    xxxxxxx xxxxxx xx x x x x
+            xx     xx        
+    x x  xx    x x   xx   x x
+       x x  xx x    xx x xx x
+     x  x xx   x x x  xx   xx
+     x xx  xxx xx x x  x  x x
+     xx  xxxx       xxxx    x
+    x x  x xx x xx xx x xx xx
+    x    xx   xxxx    xxxx   
+    xx xx   x  x  x x xx    x
+       xxxx xxxx    xxxxxx  x
+                    x   x x  
+    xxxxxxx  x  xxx x x x   x
+    x     x xxx  x xx   x  x 
+    x xxx x        xxxxxxxxxx
+    x xxx x  xxxxxxxxx  x xx 
+    x xxx x xxx  xx  x    x x
+    x     x    x    x     x  
+    xxxxxxx xxx xxx   x   x x
+
 
 
 ```
@@ -159,7 +158,6 @@ Thanks to [Kazuhiko Arase](http://www.d-project.com/) for the original QR Code i
 Licensed under the MIT license:
 http://www.opensource.org/licenses/mit-license.php
 
-The word "QR Code" is registered trademark of 
-DENSO WAVE INCORPORATED
+The word "QR Code" is registered trademark of DENSO WAVE INCORPORATED
 http://www.denso-wave.com/qrcode/faqpatent-e.html
 ```
