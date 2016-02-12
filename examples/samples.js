@@ -15,7 +15,7 @@ var qrcode = new QRCode({
   ecl: "M"
 });
 
-qrcode.save("sample-2.svg", "svg", function(error) {
+qrcode.save("sample-2.svg", function(error) {
   if (error) return console.error(error.message);
 });
 
@@ -32,7 +32,7 @@ var qrcode = new QRCode({
 var svg = qrcode.svg();
 console.log(svg);
 
-qrcode.save("sample-3.svg", "svg", function(error) {
+qrcode.save("sample-3.svg", function(error) {
   if (error) return console.error(error.message);
   console.log("QR Code saved!");
 });

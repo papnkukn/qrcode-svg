@@ -10,7 +10,7 @@ This library has been written to generate a SVG image of QR Code in Node.js, goa
 
 ## Getting Started
 
-Run the commands
+Install the package:
 ```bash
 npm install qrcode-svg
 ```
@@ -32,7 +32,10 @@ var qrcode = new QRCode({
   background: "#ffffff",
   ecl: "M"
 });
-qrcode.save("sample.svg");
+qrcode.save("sample.svg", function(error) {
+  if (error) throw error;
+  console.log("Done!");
+});
 ```
 
 ## Options
@@ -47,8 +50,8 @@ qrcode.save("sample.svg");
 
 ### SVG output
 
-```
-<?xml version="1.0" standalone="no"?>
+```xml
+<?xml version="1.0" standalone="yes"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="256" height="256">
   <rect x="0" y="0" width="256" height="256" style="fill:#ffffff;shape-rendering:crispEdges;"/>
   <rect x="16" y="16" width="8" height="8" style="fill:#000000;shape-rendering:crispEdges;"/>
@@ -129,7 +132,7 @@ console.log(ascii);
 ### Web browser
 
 Use on a HTML page with JavaScript
-```
+```html
 <!DOCTYPE html>
 <html>
 <body>
