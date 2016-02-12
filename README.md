@@ -125,7 +125,6 @@ console.log(ascii);
     xxxxxxx xxx xxx   x   x x
 
 
-
 ```
 
 ### Web browser

@@ -1,7 +1,7 @@
 {
   "name": "qrcode-svg",
   "version": "0.9.0",
-  "description": "A simple QR Code generator in pure JavaScript"
+  "description": "A simple QR Code generator in pure JavaScript",
   "main": "lib/qrcode.js",
   "scripts": {
     "test": "nodeunit"
