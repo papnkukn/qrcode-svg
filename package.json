@@ -1,0 +1,5 @@
+{
+  "name": "qrcode-svg",
+  "main": "lib/qrcode.js",
+  "version": "0.9.0"
+}
