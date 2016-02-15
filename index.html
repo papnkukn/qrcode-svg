@@ -9,6 +9,46 @@
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
     <title>qrcode-svg</title>
+    
+    <style type="text/css">
+      input[type=button] {
+        cursor: pointer;
+        border: none;
+        border-radius: 2px;
+        background-color: #0090ff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        padding: 10px;
+        color: #fff;
+        font-weight: 700;
+        text-shadow: none;
+        text-decoration: none;
+      }
+
+      input[type=text] {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: auto;
+        padding: 10px;
+        width: 100%;
+        background-color: #fff;
+        border: none;
+        border-radius: 2px;
+        color: #222;
+        font-family: Monaco,'Bitstream Vera Sans Mono','Lucida Console',Terminal,monospace;
+        font-size: 14px;
+      }
+
+      .qrcodeplaceholder {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        overflow: auto;
+        padding: 10px;
+        background-color: #fff;
+        border-radius: 2px;
+        color: #222;
+        font-family: Monaco,"Bitstream Vera Sans Mono","Lucida Console",Terminal,monospace;
+        font-size: 14px;
+        width: 100%;
+      }
+    </style>
   </head>
 
   <body>
@@ -107,6 +147,38 @@
 &lt;/<span class="pl-ent">svg</span>&gt;</pre></div>
 
 <h2>
+<a id="generate-qr-code" class="anchor" href="#generate-qr-code" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Generate QR Code</h2>
+
+<p>Enter content to the text box below and click the <strong>Generate</strong> button to display QR Code</p>
+<input type="text" id="qrcodecontent" placeholder="QR Code content" onkeydown="keydown(event)" style="width: 500px;" />
+<input type="button" value="Generate" onclick="generate()" style="width: 100px; margin-left: 10px;" />
+<script src="javascripts/qrcode.js"></script>
+<script>
+function keydown(e) {
+  var e = e || window.event;
+  if (e.keyCode == 13 || e.which == 13) {
+    generate();
+  }
+}
+
+function generate() {
+  try {
+    var qrcode = new QRCode({
+      content: document.getElementById("qrcodecontent").value,
+      width: 256,
+      height: 256,
+      padding: 4
+    });
+    document.getElementById("placeholder").innerHTML = qrcode.svg();;
+  }
+  catch (e) {
+    alert(e.message);
+  }
+}
+</script>
+<div id="placeholder" class="qrcodeplaceholder" style="margin-top: 10px; min-height: 150px;"></div>
+
+<h2>
 <a id="usage-scenarios" class="anchor" href="#usage-scenarios" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Scenarios</h2>
 
 <h3>
@@ -143,7 +215,9 @@
 }
 <span class="pl-en">console</span>.<span class="pl-c1">log</span>(ascii);</pre></div>
 
-<pre><code>
+<pre style="margin-top: 30px;"><code style="font-family: monospace; font-weight: bold; font-size: 10px; letter-spacing: 10px">
+
+
 
     xxxxxxx xx    x x xxxxxxx
     x     x  xxxx x x x     x
@@ -170,6 +244,7 @@
     x xxx x xxx  xx  x    x x
     x     x    x    x     x  
     xxxxxxx xxx xxx   x   x x
+
 
 
 </code></pre>
