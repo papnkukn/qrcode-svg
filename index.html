@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="qrcode-svg : A simple QR Code generator in pure JavaScript / node.js library">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>qrcode-svg</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/papnkukn/qrcode-svg">View on GitHub</a>
+
+          <h1 id="project_title">qrcode-svg</h1>
+          <h2 id="project_tagline">A simple QR Code generator in pure JavaScript / node.js library</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/papnkukn/qrcode-svg/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/papnkukn/qrcode-svg/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>
+<a id="introduction" class="anchor" href="#introduction" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Introduction</h2>
+
+<p>This library has been written to generate a SVG image of QR Code in Node.js, goals:</p>
+
+<ul>
+<li>pure JavaScript</li>
+<li>no browser requirement</li>
+<li>no external dependencies</li>
+<li>generate SVG output</li>
+</ul>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h2>
+
+<p>Install the package:</p>
+
+<div class="highlight highlight-source-shell"><pre>npm install qrcode-svg</pre></div>
+
+<p>Inline example:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> QRCode <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">"</span>qrcode-svg<span class="pl-pds">"</span></span>);
+<span class="pl-k">var</span> svg <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">QRCode</span>(<span class="pl-s"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>).<span class="pl-en">svg</span>();</pre></div>
+
+<p>More options:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> qrcode <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">QRCode</span>({
+  content<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>http://github.com/<span class="pl-pds">"</span></span>,
+  padding<span class="pl-k">:</span> <span class="pl-c1">4</span>,
+  width<span class="pl-k">:</span> <span class="pl-c1">256</span>,
+  height<span class="pl-k">:</span> <span class="pl-c1">256</span>,
+  color<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>#000000<span class="pl-pds">"</span></span>,
+  background<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>#ffffff<span class="pl-pds">"</span></span>,
+  ecl<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">"</span>M<span class="pl-pds">"</span></span>
+});
+<span class="pl-smi">qrcode</span>.<span class="pl-en">save</span>(<span class="pl-s"><span class="pl-pds">"</span>sample.svg<span class="pl-pds">"</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">error</span>) {
+  <span class="pl-k">if</span> (error) <span class="pl-k">throw</span> error;
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">"</span>Done!<span class="pl-pds">"</span></span>);
+});</pre></div>
+
+<h2>
+<a id="options" class="anchor" href="#options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Options</h2>
+
+<p><strong>List of options:</strong></p>
+
+<ul>
+<li>
+<strong>content</strong> - QR Code content, required</li>
+<li>
+<strong>padding</strong> - white space padding, <code>4</code> modules by default, <code>0</code> for no border</li>
+<li>
+<strong>size</strong> - QR Code width and height in pixels</li>
+<li>
+<strong>color</strong> - color of modules, color name or hex string, e.g. <code>#000000</code>
+</li>
+<li>
+<strong>background</strong> - color of background, color name or hex string, e.g. <code>white</code>
+</li>
+<li>
+<strong>ecl</strong> - error correction level: <code>L</code>, <code>M</code>, <code>H</code>, <code>Q</code>
+</li>
+</ul>
+
+<h3>
+<a id="svg-output" class="anchor" href="#svg-output" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SVG output</h3>
+
+<div class="highlight highlight-text-xml"><pre>&lt;?<span class="pl-ent">xml</span><span class="pl-e"> version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.0<span class="pl-pds">"</span></span><span class="pl-e"> standalone</span>=<span class="pl-s"><span class="pl-pds">"</span>yes<span class="pl-pds">"</span></span>?&gt;
+&lt;<span class="pl-ent">svg</span> <span class="pl-e">xmlns</span>=<span class="pl-s"><span class="pl-pds">"</span>http://www.w3.org/2000/svg<span class="pl-pds">"</span></span> <span class="pl-e">version</span>=<span class="pl-s"><span class="pl-pds">"</span>1.1<span class="pl-pds">"</span></span> <span class="pl-e">width</span>=<span class="pl-s"><span class="pl-pds">"</span>256<span class="pl-pds">"</span></span> <span class="pl-e">height</span>=<span class="pl-s"><span class="pl-pds">"</span>256<span class="pl-pds">"</span></span>&gt;
+  &lt;<span class="pl-ent">rect</span> <span class="pl-e">x</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">y</span>=<span class="pl-s"><span class="pl-pds">"</span>0<span class="pl-pds">"</span></span> <span class="pl-e">width</span>=<span class="pl-s"><span class="pl-pds">"</span>256<span class="pl-pds">"</span></span> <span class="pl-e">height</span>=<span class="pl-s"><span class="pl-pds">"</span>256<span class="pl-pds">"</span></span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>fill:#ffffff;shape-rendering:crispEdges;<span class="pl-pds">"</span></span>/&gt;
+  &lt;<span class="pl-ent">rect</span> <span class="pl-e">x</span>=<span class="pl-s"><span class="pl-pds">"</span>16<span class="pl-pds">"</span></span> <span class="pl-e">y</span>=<span class="pl-s"><span class="pl-pds">"</span>16<span class="pl-pds">"</span></span> <span class="pl-e">width</span>=<span class="pl-s"><span class="pl-pds">"</span>8<span class="pl-pds">"</span></span> <span class="pl-e">height</span>=<span class="pl-s"><span class="pl-pds">"</span>8<span class="pl-pds">"</span></span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>fill:#000000;shape-rendering:crispEdges;<span class="pl-pds">"</span></span>/&gt;
+  &lt;<span class="pl-ent">rect</span> <span class="pl-e">x</span>=<span class="pl-s"><span class="pl-pds">"</span>24<span class="pl-pds">"</span></span> <span class="pl-e">y</span>=<span class="pl-s"><span class="pl-pds">"</span>16<span class="pl-pds">"</span></span> <span class="pl-e">width</span>=<span class="pl-s"><span class="pl-pds">"</span>8<span class="pl-pds">"</span></span> <span class="pl-e">height</span>=<span class="pl-s"><span class="pl-pds">"</span>8<span class="pl-pds">"</span></span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>fill:#000000;shape-rendering:crispEdges;<span class="pl-pds">"</span></span>/&gt;
+  &lt;<span class="pl-ent">rect</span> <span class="pl-e">x</span>=<span class="pl-s"><span class="pl-pds">"</span>32<span class="pl-pds">"</span></span> <span class="pl-e">y</span>=<span class="pl-s"><span class="pl-pds">"</span>16<span class="pl-pds">"</span></span> <span class="pl-e">width</span>=<span class="pl-s"><span class="pl-pds">"</span>8<span class="pl-pds">"</span></span> <span class="pl-e">height</span>=<span class="pl-s"><span class="pl-pds">"</span>8<span class="pl-pds">"</span></span> <span class="pl-e">style</span>=<span class="pl-s"><span class="pl-pds">"</span>fill:#000000;shape-rendering:crispEdges;<span class="pl-pds">"</span></span>/&gt;
+  ...
+&lt;/<span class="pl-ent">svg</span>&gt;</pre></div>
+
+<h2>
+<a id="usage-scenarios" class="anchor" href="#usage-scenarios" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage Scenarios</h2>
+
+<h3>
+<a id="convert-to-other-formats" class="anchor" href="#convert-to-other-formats" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Convert to other formats</h3>
+
+<p>Using <a href="https://www.npmjs.com/package/html-pdf">html-pdf</a> to convert SVG to PDF (or PNG or JPEG)</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> QRCode <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>qrcode-svg<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> svg <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">QRCode</span>(<span class="pl-s"><span class="pl-pds">'</span>hello<span class="pl-pds">'</span></span>).<span class="pl-en">svg</span>();
+<span class="pl-k">...</span>
+<span class="pl-k">var</span> pdf <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>html-pdf<span class="pl-pds">'</span></span>);
+<span class="pl-smi">pdf</span>.<span class="pl-en">create</span>(svg, { border<span class="pl-k">:</span> <span class="pl-c1">0</span>, type<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>pdf<span class="pl-pds">'</span></span> }).<span class="pl-en">toFile</span>(<span class="pl-s"><span class="pl-pds">'</span>output.pdf<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">err</span>, <span class="pl-smi">res</span>) {
+  <span class="pl-k">...</span>
+});</pre></div>
+
+<h3>
+<a id="ascii-modules" class="anchor" href="#ascii-modules" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ASCII modules</h3>
+
+<p>QR Code in ASCII to output in a shell</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> QRCode <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>qrcode-svg<span class="pl-pds">'</span></span>);
+
+<span class="pl-k">var</span> hello <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">QRCode</span>(<span class="pl-s"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>);
+<span class="pl-k">var</span> modules <span class="pl-k">=</span> <span class="pl-smi">hello</span>.<span class="pl-smi">qrcode</span>.<span class="pl-smi">modules</span>;
+
+<span class="pl-k">var</span> ascii <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>;
+<span class="pl-k">var</span> length <span class="pl-k">=</span> <span class="pl-smi">modules</span>.<span class="pl-c1">length</span>;
+<span class="pl-k">for</span> (<span class="pl-k">var</span> y <span class="pl-k">=</span> <span class="pl-c1">0</span>; y <span class="pl-k">&lt;</span> length; y<span class="pl-k">++</span>) {
+  <span class="pl-k">for</span> (<span class="pl-k">var</span> x <span class="pl-k">=</span> <span class="pl-c1">0</span>; x <span class="pl-k">&lt;</span> length; x<span class="pl-k">++</span>) {
+    <span class="pl-k">var</span> <span class="pl-c1">module</span> <span class="pl-k">=</span> modules[x][y];
+    ascii <span class="pl-k">+=</span> (<span class="pl-c1">module</span> <span class="pl-k">?</span> <span class="pl-s"><span class="pl-pds">'</span>x<span class="pl-pds">'</span></span> <span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span> <span class="pl-pds">'</span></span>);
+  }
+  ascii <span class="pl-k">+=</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\r\n</span><span class="pl-pds">'</span></span>;
+}
+<span class="pl-en">console</span>.<span class="pl-c1">log</span>(ascii);</pre></div>
+
+<pre><code>
+
+    xxxxxxx xx    x x xxxxxxx
+    x     x  xxxx x x x     x
+    x xxx x xx  xx  x x xxx x
+    x xxx x       xx  x xxx x
+    x xxx x  x   x  x x xxx x
+    x     x  x  xx xx x     x
+    xxxxxxx x x x x x xxxxxxx
+            xx     xx        
+    x x  xx    x x   xx   x x
+       x x  xx x    xx x xx x
+     x  x xx   x x x  xx   xx
+     x xx  xxx xx x x  x  x x
+     xx  xxxx       xxxx    x
+    x x  x xx x xx xx x xx xx
+    x    xx   xxxx    xxxx   
+    xx xx   x  x  x x xx    x
+       xxxx xxxx    xxxxxx  x
+                    x   x x  
+    xxxxxxx  x  xxx x x x   x
+    x     x xxx  x xx   x  x 
+    x xxx x        xxxxxxxxxx
+    x xxx x  xxxxxxxxx  x xx 
+    x xxx x xxx  xx  x    x x
+    x     x    x    x     x  
+    xxxxxxx xxx xxx   x   x x
+
+
+</code></pre>
+
+<h3>
+<a id="web-browser" class="anchor" href="#web-browser" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Web browser</h3>
+
+<p>Use on a HTML page with JavaScript</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;!DOCTYPE html&gt;
+&lt;<span class="pl-ent">html</span>&gt;
+&lt;<span class="pl-ent">body</span>&gt;
+&lt;<span class="pl-ent">div</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>container<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">div</span>&gt;
+&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>lib/qrcode.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+<span class="pl-s1">&lt;<span class="pl-ent">script</span>&gt;</span>
+<span class="pl-s1"><span class="pl-k">var</span> qrcode <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">QRCode</span>(<span class="pl-s"><span class="pl-pds">"</span>Hello World!<span class="pl-pds">"</span></span>);</span>
+<span class="pl-s1"><span class="pl-k">var</span> svg <span class="pl-k">=</span> <span class="pl-smi">qrcode</span>.<span class="pl-en">svg</span>();</span>
+<span class="pl-s1"><span class="pl-c1">document</span>.<span class="pl-c1">getElementById</span>(<span class="pl-s"><span class="pl-pds">"</span>container<span class="pl-pds">"</span></span>).<span class="pl-smi">innerHTML</span> <span class="pl-k">=</span> svg;</span>
+<span class="pl-s1">&lt;/<span class="pl-ent">script</span>&gt;</span>
+&lt;/<span class="pl-ent">body</span>&gt;
+&lt;/<span class="pl-ent">html</span>&gt;</pre></div>
+
+<h2>
+<a id="thanks" class="anchor" href="#thanks" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Thanks</h2>
+
+<p>Thanks to <a href="https://github.com/davidshimjs/qrcodejs">davidshimjs</a> for the base library.</p>
+
+<p>Thanks to <a href="http://www.d-project.com/">Kazuhiko Arase</a> for the original QR Code in JavaScript algorithm.</p>
+
+<h2>
+<a id="legal-notice" class="anchor" href="#legal-notice" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Legal notice</h2>
+
+<pre><code>Licensed under the MIT license:
+http://www.opensource.org/licenses/mit-license.php
+
+The word "QR Code" is registered trademark of DENSO WAVE INCORPORATED
+http://www.denso-wave.com/qrcode/faqpatent-e.html
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">qrcode-svg maintained by <a href="https://github.com/papnkukn">papnkukn</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
