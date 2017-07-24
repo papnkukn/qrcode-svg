@@ -41,7 +41,8 @@ qrcode.save("sample.svg", function(error) {
 **List of options:**
 * **content** - QR Code content, required
 * **padding** - white space padding, `4` modules by default, `0` for no border
-* **size** - QR Code width and height in pixels
+* **width** - QR Code width in pixels
+* **height** - QR Code height in pixels
 * **color** - color of modules, color name or hex string, e.g. `#000000`
 * **background** - color of background, color name or hex string, e.g. `white`
 * **ecl** - error correction level: `L`, `M`, `H`, `Q`
@@ -57,6 +58,31 @@ qrcode.save("sample.svg", function(error) {
   <rect x="32" y="16" width="8" height="8" style="fill:#000000;shape-rendering:crispEdges;"/>
   ...
 </svg>
+```
+
+## Command Line
+
+```
+Usage:
+  qrcode-svg [options] <content>
+
+Options:
+  --help                 Print this message
+  --padding [value]      Offset in number of modules
+  --width [px]           Image width in pixels
+  --height [px]          Image height in pixels
+  --color [color]        Foreground color, hex or name
+  --background [color]   Background color, hex or name
+  --ecl [value]          Error correction level: L, M, H, Q
+  -o [file]              Output file name
+  -f                     Force overwrite
+  -v                     Print version number
+
+Examples:
+  qrcode-svg http://github.com
+  qrcode-svg -f -o hello.svg "Hello World"
+  qrcode-svg --padding 2 --width 120 --height 120 "Little fox..."
+  qrcode-svg --color blue --background #ececec "...jumps over"
 ```
 
 ## Usage Scenarios
@@ -135,7 +161,7 @@ Use on a HTML page with JavaScript
 <html>
 <body>
 <div id="container"></div>
-<script src="lib/qrcode.js"></script>
+<script src="dist/qrcode.min.js"></script>
 <script>
 var qrcode = new QRCode("Hello World!");
 var svg = qrcode.svg();
