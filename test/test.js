@@ -80,3 +80,184 @@ exports["Test content length"] = function(test) {
   
   test.done();
 };
+
+exports["Test containers"] = function(test) {
+  test.expect(4);
+  
+  //QR Code in 'svg' element with 'width' and 'height' attributes
+  test.doesNotThrow(function() {
+    var svg = new QRCode({ content: "test" }).svg({ container: "svg" });
+    if (!/\<svg\s+/g.test(svg)) {
+      throw new Error("Missing SVG root element!");
+    }
+    if (/viewbox=/gi.test(svg)) {
+      throw new Error("Unexpected 'viewbox' attribute!");
+    }
+  }, Error, "Error in 'svg' container!");
+  
+  //QR Code in 'svg' element with 'viewbox' attribute
+  test.doesNotThrow(function() {
+    var svg = new QRCode({ content: "test" }).svg({ container: "svg-viewbox" });
+    if (!/\<svg\s+/g.test(svg)) {
+      throw new Error("Missing SVG root element!");
+    }
+    if (!/viewbox=/gi.test(svg)) {
+      throw new Error("Missing 'viewbox' attribute!");
+    }
+  }, Error, "Error in 'svg-viewbox' container!");
+  
+  //QR Code in 'g' element
+  test.doesNotThrow(function() {
+    var svg = new QRCode({ content: "test" }).svg({ container: "g" });
+    if (/\<svg\s+/g.test(svg)) {
+      throw new Error("Unexpected SVG root element!");
+    }
+    if (!/\<g[\s\>]+/g.test(svg)) {
+      throw new Error("Missing 'g' element!");
+    }
+  }, Error, "Error in 'g' container!");
+  
+  //QR Code modules without the container element
+  test.doesNotThrow(function() {
+    var svg = new QRCode({ content: "test" }).svg({ container: "none" });
+    if (/\<svg\s+/g.test(svg)) {
+      throw new Error("Unexpected SVG root element!");
+    }
+    if (/\<g[\s\>]+/g.test(svg)) {
+      throw new Error("Unexpected 'g' element!");
+    }
+  }, Error, "Error in 'g' container!");
+  
+  test.done();
+};
+
+exports["Test pretty"] = function(test) {
+  test.expect(3);
+  
+  //Prettify XML enabled by default
+  test.doesNotThrow(function() {
+    var svg = new QRCode({ content: "test" }).svg({ container: "none" });
+    if (/$\s+\<rect\s+/g.test(svg)) {
+      throw new Error("Unexpected indent before the 'rect' element!");
+    }
+    if (/$\<rect\s+/g.test(svg)) {
+      throw new Error("Missing 'rect' element!");
+    }
+  }, Error, "Error in the indent!");
+  
+  //Prettify XML within a SVG container
+  test.doesNotThrow(function() {
+    var svg = new QRCode({ content: "test" }).svg({ container: "svg-viewbox" });
+    if (!/[\r\n]+\s+\<rect\s+/g.test(svg)) {
+      throw new Error("Missing indent before the 'rect' element!");
+    }
+  }, Error, "Error in the indent!");
+  
+  //Turn of prettify XML
+  test.doesNotThrow(function() {
+    var svg = new QRCode({ content: "test", pretty: false }).svg({ container: "svg-viewbox" });
+    if (/[\r\n]+\s+\<rect\s+/g.test(svg)) {
+      throw new Error("Unexpected indent before the 'rect' element!");
+    }
+  }, Error, "Error in the indent!");
+  
+  test.done();
+};
+
+exports["Test other options"] = function(test) {
+  test.expect(3);
+  
+  //Element 'rect' as the default option
+  test.doesNotThrow(function() {
+    var svg = new QRCode({ content: "test" }).svg({ container: "none" });
+    if (svg.split(/\<rect\s+/g).length < 20) { //There must be at least few 'rect' elements
+      throw new Error("Missing 'rect' element!");
+    }
+  }, Error, "Error in 'rect' modules!");
+  
+  //Element 'path' for joined modules
+  test.doesNotThrow(function() {
+    var svg = new QRCode({ content: "test", join: true }).svg({ container: "none" });
+    if (svg.split(/\<rect\s+/g).length - 1 != 1) { //Exactly one 'rect' for background
+      throw new Error("Unexpected 'rect' modules!");
+    }
+    if (!/\<path\s+[^\>]+d=/g.test(svg)) {
+      throw new Error("Missing 'path' element with 'd' attribute!");
+    }
+  }, Error, "Error in SVG path!");
+  
+  //Element 'defs' and 'use' for populating with a predefined module shape
+  test.doesNotThrow(function() {
+    var svg = new QRCode({ content: "test", predefined: true }).svg({ container: "none" });
+    if (svg.split(/\<rect\s+/g).length - 1 != 1) { //Exactly one 'rect' for background
+      throw new Error("Unexpected 'rect' modules!");
+    }
+    if (!/\<defs[\s\>]/g.test(svg)) {
+      throw new Error("Missing 'defs' element!");
+    }
+    if (!/\<use\s+[^\>]+href=/g.test(svg)) {
+      throw new Error("Missing 'use' element with 'href' attribute!");
+    }
+  }, Error, "Error in predefined shape!");
+  
+  test.done();
+};
+
+exports["Test by generating samples"] = function(test) {
+  test.expect(5);
+  
+  var fs = require('fs');
+  var path = require('path');
+  
+  var folder = "samples";
+  if (!fs.existsSync(folder)) {
+    fs.mkdirSync(folder);
+  }
+  
+  test.doesNotThrow(function() {
+    new QRCode({ content: "test" })
+    .save(path.join(folder, "sample_default.svg"));
+  }, Error, "Should generate a QR Code file!");
+  
+  test.doesNotThrow(function() {
+    new QRCode({
+      content: "test",
+      background: "beige",
+      color: "blue",
+      join: true
+    })
+    .save(path.join(folder, "sample_path_data.svg"));
+  }, Error, "Should generate a QR Code file!");
+  
+  test.doesNotThrow(function() {
+    new QRCode({
+      content: "test",
+      background: "beige",
+      color: "maroon",
+      predefined: true
+    })
+    .save(path.join(folder, "sample_defs_use.svg"));
+  }, Error, "Should generate a QR Code file!");
+  
+  test.doesNotThrow(function() {
+    new QRCode({
+      content: "test",
+      background: "white",
+      color: "black",
+      swap: true
+    })
+    .save(path.join(folder, "sample_swap_xy.svg"));
+  }, Error, "Should generate a QR Code file!");
+  
+  test.doesNotThrow(function() {
+    new QRCode({
+      content: "test",
+      pretty: false
+    })
+    .save(path.join(folder, "sample_no_pretty.svg"));
+  }, Error, "Should generate a QR Code file!");
+  
+  setTimeout(function() {
+    test.done();
+  }, 1000);
+};

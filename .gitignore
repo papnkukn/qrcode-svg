@@ -1,3 +1,6 @@
+# Test
+samples/
+
 # Logs
 logs
 *.log
@@ -25,6 +28,9 @@ build/Release
 
 # Dependency directory
 node_modules
+
+# npm
+package-lock.json
 
 # Optional npm cache directory
 .npm

@@ -16,23 +16,33 @@ for (var i = 0; i < args.length; i++) {
       help();
       process.exit(0);
       break;
-      
+    
+    //Padding in number of modules
+    case "-p":
     case "--padding":
       config.padding = parseFloat(args[++i]);
       break;
-      
+    
+    //Width in pixels    
+    case "-w":
     case "--width":
       config.width = parseFloat(args[++i]);
       break;
       
+    //Height in pixels
+    case "-h":
     case "--height":
       config.height = parseFloat(args[++i]);
       break;
-      
+    
+    //Foreground color    
+    case "-fg":
     case "--color":
       config.color = args[++i];
       break;
-      
+    
+    //Background color
+    case "-bg":
     case "--background":
       config.background = args[++i];
       break;
@@ -41,15 +51,38 @@ for (var i = 0; i < args.length; i++) {
       config.ecl = args[++i];
       break;
       
+    case "--join":
+      config.join = true;
+      break;
+      
+    case "--predefined":
+      config.predefined = true;
+      break;
+      
+    case "--viewbox":
+      config.container = "svg-viewbox";
+      break;
+      
+    case "--no-prettify":
+      config.pretty = false;
+      break;
+      
+    case "--swap-fix":
+      config.swap = true;
+      break;
+      
     case "-f":
+    case "--force":
       config.force = true;
       break;
       
     case "-o":
+    case "--output":
       config.outputFile = args[++i];
       break;
       
     case "-v":
+    case "--version":
       console.log(require('./package.json').version);
       process.exit(0);
       break;
@@ -73,19 +106,25 @@ function help() {
   console.log("");
   console.log("Options:");
   console.log("  --help                 Print this message");
-  console.log("  --padding [value]      Offset in number of modules");
-  console.log("  --width [px]           Image width in pixels");
-  console.log("  --height [px]          Image height in pixels");
-  console.log("  --color [color]        Foreground color, hex or name");
+  console.log("  --version, -v          Print version number");
+  console.log("  --padding , -p [value] Offset in number of modules");
+  console.log("  --width, -w [px]       Image width in pixels");
+  console.log("  --height, -h [px]      Image height in pixels");
+  console.log("  --color, -fg [color]   Foreground color, hex or name");
   console.log("  --background [color]   Background color, hex or name");
   console.log("  --ecl [value]          Error correction level: L, M, H, Q");
-  console.log("  -o [file]              Output file name");
-  console.log("  -f                     Force overwrite");
-  console.log("  -v                     Print version number");
+  console.log("  --join                 Join modules into one SVG path, i.e. for crisp rendering");
+  console.log("  --predefined           Use 'defs' and 'use' elements in SVG, i.e. for compact output");
+  console.log("  --no-prettify          Avoid indenting and new lines in SVG, i.e. for compact output");
+  console.log("  --viewbox              Use 'viewBox' instead of 'width' and 'height' attributes");
+  console.log("  --swap-fix             Swap X and Y modules to fix issues with some QR readers");
+  console.log("  --output, -o [file]    Output file name");
+  console.log("  --force, -f            Force overwrite");
   console.log("");
   console.log("Examples:");
   console.log("  qrcode-svg http://github.com");
   console.log("  qrcode-svg -f -o hello.svg \"Hello World\"");
+  console.log("  qrcode-svg -p 4 -w 256 -h 256 --join --viewbox \"Responsive...\"");
   console.log("  qrcode-svg --padding 2 --width 120 --height 120 \"Little fox...\"");
   console.log("  qrcode-svg --color blue --background #ececec \"...jumps over\"");
 }
