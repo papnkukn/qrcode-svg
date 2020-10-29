@@ -75,7 +75,7 @@ for (var i = 0; i < args.length; i++) {
     case "--force":
       config.force = true;
       break;
-      
+
     case "-o":
     case "--output":
       config.outputFile = args[++i];
@@ -102,7 +102,7 @@ for (var i = 0; i < args.length; i++) {
 //Prints help message
 function help() {
   console.log("Usage:");
-  console.log("  qrcode-svg [options] <content>");
+  console.log("  qrcode-svg [options] <content or stdin>");
   console.log("");
   console.log("Options:");
   console.log("  --help                 Print this message");
@@ -135,8 +135,7 @@ if (args.length == 0) {
 }
 
 if (typeof config.content != "string" || config.content.length == 0) {
-  console.error("Content is missing!");
-  process.exit(2);
+  config.content = fs.readFileSync(0, "utf-8");
 }
 
 var qrcode = new QRCode(config);
