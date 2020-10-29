@@ -1,6 +1,6 @@
 {
   "name": "qrcode-svg-table",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A QR Code generator in pure JavaScript",
   "author": "igorshmukler",
   "license": "MIT",

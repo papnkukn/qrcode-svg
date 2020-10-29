@@ -1,63 +1,69 @@
 ## Introduction
 
 This library has been written to generate a SVG image of QR Code in Node.js, goals:
-* pure JavaScript
-* no browser requirement
-* no external dependencies
-* generate SVG output
+
+- pure JavaScript
+- no browser requirement
+- no external dependencies
+- generate SVG output
 
 ## Getting Started
 
 Install the package:
+
 ```bash
-npm install qrcode-svg
+npm install qrcode-svg-table
 ```
 
 Inline example:
+
 ```javascript
-var QRCode = require("qrcode-svg");
-var svg = new QRCode("Hello World!").svg();
+var QRCode = require('qrcode-svg-table');
+var svg = new QRCode('Hello World!').svg();
 ```
 
 More options:
+
 ```javascript
 var qrcode = new QRCode({
-  content: "http://github.com/",
+  content: 'http://github.com/',
   padding: 4,
   width: 256,
   height: 256,
-  color: "#000000",
-  background: "#ffffff",
-  ecl: "M",
+  color: '#000000',
+  background: '#ffffff',
+  ecl: 'M'
 });
-qrcode.save("sample.svg", function(error) {
+qrcode.save('sample.svg', function (error) {
   if (error) throw error;
-  console.log("Done!");
+  console.log('Done!');
 });
 ```
 
 ## Options
 
 **List of options:**
-* **content** - QR Code content, the only **required** parameter
-* **padding** - white space padding, `4` modules by default, `0` for no border
-* **width** - QR Code width in pixels
-* **height** - QR Code height in pixels
-* **color** - color of modules (squares), color name or hex string, e.g. `#000000`
-* **background** - color of background, color name or hex string, e.g. `white`
-* **ecl** - error correction level: `L`, `M`, `H`, `Q`
-* **join** - join modules (squares) into one shape, into the SVG `path` element, **recommended** for web and responsive use, default: `false`
-* **predefined** - to create a squares as pattern, then populate the canvas, default: `false`, see the output examples below
-* **pretty** - apply indents and new lines, default: `true`
-* **swap** - swap X and Y modules, only if you have issues with some QR readers, default: `false`
-* **xmlDeclaration** - prepend XML declaration to the SVG document, i.e. `<?xml version="1.0" standalone="yes"?>`, default: `true`
-* **container** - wrapping element, default: `svg`, see below
+
+- **content** - QR Code content, the only **required** parameter
+- **padding** - white space padding, `4` modules by default, `0` for no border
+- **width** - QR Code width in pixels
+- **height** - QR Code height in pixels
+- **color** - color of modules (squares), color name or hex string, e.g. `#000000`
+- **background** - color of background, color name or hex string, e.g. `white`
+- **ecl** - error correction level: `L`, `M`, `H`, `Q`
+- **join** - join modules (squares) into one shape, into the SVG `path` element, **recommended** for web and responsive use, default: `false`
+- **predefined** - to create a squares as pattern, then populate the canvas, default: `false`, see the output examples below
+- **pretty** - apply indents and new lines, default: `true`
+- **swap** - swap X and Y modules, only if you have issues with some QR readers, default: `false`
+- **xmlDeclaration** - prepend XML declaration to the SVG document, i.e. `<?xml version="1.0" standalone="yes"?>`, default: `true`
+- **container** - wrapping element, default: `svg`, see below
 
 **Container options:**
-* **svg** - populate squares in a SVG document with `width` and `height` attriute, recommended for converting to raster images or PDF where QR Code is being static (exact size)
-* **svg-viewbox** - populate squares in a SVG document with `viewBox` attriute, **recommended** for responsive web pages
-* **g** - put squares in `g` element, useful when you need to put multiple QR Codes in a single SVG document
-* **none** - no wrapper
+
+- **svg** - populate squares in a SVG document with `width` and `height` attriute, recommended for converting to raster images or PDF where QR Code is being static (exact size)
+- **svg-viewbox** - populate squares in a SVG document with `viewBox` attriute, **recommended** for responsive web pages
+- **g** - put squares in `g` element, useful when you need to put multiple QR Codes in a single SVG document
+- **none** - no wrapper
 
 ## SVG output
 
@@ -68,15 +74,17 @@ Thus, one can open the QR Code in an editor, select particular modules, move aro
 However, some old SVG viewers may generate minor gaps between the squares - the side effect when rendering an image at certain zoom level.
 
 Default options
+
 ```javascript
 var qrcode = new QRCode({
-  content: "Pretty Fox",
+  content: 'Pretty Fox',
   join: false,
   predefined: false
 });
 ```
 
 Output with `rect` elements
+
 ```xml
 <?xml version="1.0" standalone="yes"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="256" height="256">
@@ -95,15 +103,17 @@ A single `path` element will result in an optimized rendering, thus not producin
 Also using the container with `viewBox` attribute may contribute to the responsive scaling on the web.
 
 Set `join` to `true`
+
 ```javascript
 var qrcode = new QRCode({
-  content: "Pretty Fox",
+  content: 'Pretty Fox',
   join: true,
-  container: "svg-viewbox" //Useful but not required
+  container: 'svg-viewbox' //Useful but not required
 });
 ```
 
 Output with `path` element
+
 ```xml
 <?xml version="1.0" standalone="yes"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 256 256">
@@ -118,14 +128,16 @@ Algorithm defines the square pattern once before populating a canvas. Useful if 
 However, some SVG software and converters do not support `defs` or `use` elements.
 
 Set `predefined` to `true`
+
 ```javascript
 var qrcode = new QRCode({
-  content: "Pretty Fox",
+  content: 'Pretty Fox',
   predefined: true
 });
 ```
 
 Output with `defs` and `use` elements
+
 ```xml
 <?xml version="1.0" standalone="yes"?>
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="256" height="256">
@@ -168,7 +180,7 @@ Examples:
   qrcode-svg -f -o hello.svg "Hello World"
   qrcode-svg -p 4 -w 256 -h 256 --join --viewbox "Responsive..."
   qrcode-svg --padding 2 --width 120 --height 120 "Little fox..."
-  qrcode-svg --color blue --background #ececec "...jumps over" 
+  qrcode-svg --color blue --background #ececec "...jumps over"
 ```
 
 ## Usage Scenarios
@@ -176,9 +188,11 @@ Examples:
 ### Convert to other formats
 
 Using [html-pdf](https://www.npmjs.com/package/html-pdf) to convert SVG to PDF (or PNG or JPEG)
+
 ```javascript
-var QRCode = require('qrcode-svg');
+var QRCode = require('qrcode-svg-table');
 var svg = new QRCode('hello').svg();
+var table = new QRCode('hello').table();
 ...
 var pdf = require('html-pdf');
 pdf.create(svg, { border: 0, type: 'pdf' }).toFile('output.pdf', function(err, res) {
@@ -189,10 +203,11 @@ pdf.create(svg, { border: 0, type: 'pdf' }).toFile('output.pdf', function(err, r
 ### ASCII modules
 
 QR Code in ASCII to output in a shell
-```javascript
-var QRCode = require('qrcode-svg');
 
-var hello = new QRCode("Hello World!");
+```javascript
+var QRCode = require('qrcode-svg-table');
+
+var hello = new QRCode('Hello World!');
 var modules = hello.qrcode.modules;
 
 var ascii = '';
@@ -200,7 +215,7 @@ var length = modules.length;
 for (var y = 0; y < length; y++) {
   for (var x = 0; x < length; x++) {
     var module = modules[x][y];
-    ascii += (module ? 'x' : ' ');
+    ascii += module ? 'x' : ' ';
   }
   ascii += '\r\n';
 }
@@ -217,23 +232,23 @@ console.log(ascii);
     x xxx x  x   x  x x xxx x
     x     x  x  xx xx x     x
     xxxxxxx x x x x x xxxxxxx
-            xx     xx        
+            xx     xx
     x x  xx    x x   xx   x x
        x x  xx x    xx x xx x
      x  x xx   x x x  xx   xx
      x xx  xxx xx x x  x  x x
      xx  xxxx       xxxx    x
     x x  x xx x xx xx x xx xx
-    x    xx   xxxx    xxxx   
+    x    xx   xxxx    xxxx
     xx xx   x  x  x x xx    x
        xxxx xxxx    xxxxxx  x
-                    x   x x  
+                    x   x x
     xxxxxxx  x  xxx x x x   x
-    x     x xxx  x xx   x  x 
+    x     x xxx  x xx   x  x
     x xxx x        xxxxxxxxxx
-    x xxx x  xxxxxxxxx  x xx 
+    x xxx x  xxxxxxxxx  x xx
     x xxx x xxx  xx  x    x x
-    x     x    x    x     x  
+    x     x    x    x     x
     xxxxxxx xxx xxx   x   x x
 
 
@@ -242,22 +257,23 @@ console.log(ascii);
 ### Web browser
 
 Use on a HTML page with JavaScript
+
 ```html
 <!DOCTYPE html>
 <html>
-<body>
-<div id="container"></div>
-<script src="dist/qrcode.min.js"></script>
-<script>
-var qrcode = new QRCode({
-  content: "Hello World!",
-  container: "svg-viewbox", //Responsive use
-  join: true //Crisp rendering and 4-5x reduced file size
-});
-var svg = qrcode.svg();
-document.getElementById("container").innerHTML = svg;
-</script>
-</body>
+  <body>
+    <div id="container"></div>
+    <script src="dist/qrcode.min.js"></script>
+    <script>
+      var qrcode = new QRCode({
+        content: 'Hello World!',
+        container: 'svg-viewbox', //Responsive use
+        join: true //Crisp rendering and 4-5x reduced file size
+      });
+      var svg = qrcode.svg();
+      document.getElementById('container').innerHTML = svg;
+    </script>
+  </body>
 </html>
 ```
 
