@@ -164,6 +164,20 @@ exports["Test pretty"] = function(test) {
   test.done();
 };
 
+exports["Test path generation"] = function(test) {
+  test.expect(1);
+
+  // Joins by default and returns the path
+  test.doesNotThrow(function() {
+    var svg = new QRCode({ content: "test" }).svg({ container: 'path-data' });
+    if (svg.indexOf('M35.31,35.31 V44.14 H44.14 V35.31') !== 0) {
+      throw new Error("Did not return an svg path!");
+    }
+  }, Error, "Error in SVG path!");
+  
+  test.done();
+};
+
 exports["Test other options"] = function(test) {
   test.expect(3);
   
