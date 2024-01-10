@@ -44,7 +44,7 @@ qrcode.save("sample.svg", function(error) {
 * **width** - QR Code width in pixels
 * **height** - QR Code height in pixels
 * **color** - color of modules (squares), color name or hex string, e.g. `#000000`
-* **background** - color of background, color name or hex string, e.g. `white`
+* **background** - color of background, color name or hex string, e.g. `white`, `none` to exclude background
 * **ecl** - error correction level: `L`, `M`, `H`, `Q`
 * **join** - join modules (squares) into one shape, into the SVG `path` element, **recommended** for web and responsive use, default: `false`
 * **predefined** - to create a squares as pattern, then populate the canvas, default: `false`, see the output examples below
